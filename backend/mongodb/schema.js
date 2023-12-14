@@ -4,34 +4,51 @@ const mongoose = require('mongoose');
 
 // Define user table
 const userSchema = mongoose.Schema({
-    userid: Number,
+    userid: {
+        type: Number,
+        required: true,
+        unique: true,
+    },
     username: String,
     password: String,
     isAdmin: Boolean,
 })
-const userModel = mongoose.model('User', userSchema);
+const userModel = mongoose.model('user', userSchema);
 
 // Define event table
-const Schema = mongoose.Schema({
+const eventSchema = mongoose.Schema({
+    eventid: {
+        type: Number,
+        required: true,
+        unique: true,
+    },
     title: String, 
-    venueid:Number, 
+    venueid:{
+        type: Number,
+        ref: 'venue',
+    }, 
     progtime:String, 
     desce:String, 
     presenterorge:String, 
     price:Number,
 })
-const eventModel = mongoose.model('event', Schema);
+const eventModel = mongoose.model('event', eventSchema);
 
 // Define location table
-const locationSchema = mongoose.Schema({
+const venueSchema = mongoose.Schema({
+    id: {
+        type: Number,
+        required: true,
+        unique: true,
+    },
     name: String,
     latitude: Number,
     longtitude: Number
     },
 )
-const locationModel = mongoose.model('location', locationSchema);
+const venueModel = mongoose.model('venue', venueSchema);
 
 // export the schemas
-exports.GetuserModel = () => {{return userModel}};
-exports.GeteventModel = () => {{return eventModel}};
-exports.GetlocationModel = () => {{return locationModel}};
+exports.GetuserModel = userModel;
+exports.GeteventModel = eventModel;
+exports.GetvenueModel = venueModel;
