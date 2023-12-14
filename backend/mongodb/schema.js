@@ -42,8 +42,8 @@ const venueSchema = mongoose.Schema({
         unique: true,
     },
     name: String,
-    latitude: Number,
-    longtitude: Number
+    latitude: String,
+    longitude: String
     },
 )
 const venueModel = mongoose.model('venue', venueSchema);
