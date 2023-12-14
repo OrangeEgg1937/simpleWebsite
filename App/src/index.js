@@ -12,6 +12,7 @@ import LocationTable from "./locTable"
 import Map from "./map"
 import EventTable from "./eventTable"
 import Favourite from "./favourite"
+import LocationDetail from "./locDetail"
 
 class App extends React.Component {
   render() {
@@ -40,6 +41,7 @@ class App extends React.Component {
             <Route path="/loc/map" element={<Map />} />
             <Route path="/event/table" element={<EventTable />} />
             <Route path="/favourite" element={<Favourite />} />
+            <Route path="/loc/detail/:locName" element={<LocationDetail />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </BrowserRouter>
@@ -48,7 +50,7 @@ class App extends React.Component {
   }
 }
 
-  const NoMatch = () =>{}
+const NoMatch = () =>{}
 
 
 
