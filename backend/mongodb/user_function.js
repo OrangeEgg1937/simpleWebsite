@@ -3,15 +3,8 @@ const mongoose = require('mongoose');
 // Initialize the db
 db = require("./connection");
 
-// Define user table
-const Schema = mongoose.Schema({
-    userid: Number,
-    username: String,
-    password: String,
-    isAdmin: Boolean,
-})
 // Define user model
-const dbModel = mongoose.model('User', Schema);
+const dbModel = require("./schema").GetuserModel;
 
 // Add a new user to the database
 exports.adduser = (req, res) => {
