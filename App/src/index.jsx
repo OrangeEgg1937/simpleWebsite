@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import React from 'react';
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Nav } from "react-bootstrap";
 import {
   BrowserRouter,
   Routes,
@@ -8,8 +8,8 @@ import {
   Link,
 } from 'react-router-dom';
 import "./index.css";
-// import LocationTable from "./locTable"
-// import Map from "./map"
+import LocationTable from "./locTable"
+// import Map from "./mapShow"
 // import EventTable from "./eventTable"
 // import Favourite from "./favourite"
 // import LocationDetail from "./locDetail"
@@ -37,7 +37,7 @@ class App extends React.Component {
           </header>
           <h3>Content</h3>
           <Routes>
-            <Route path="/loc/table" element={<NoMatch />} />
+            <Route path="/loc/table" element={<LocationTable />} />
             <Route path="/loc/map" element={<NoMatch />} />
             <Route path="/event/table" element={<NoMatch />} />
             <Route path="/favourite" element={<NoMatch />} />

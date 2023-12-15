@@ -23,7 +23,8 @@ const LocationTable = () => {
     rows: []
   };
   React.useEffect(() => {
-    axios.get('http://localhost:8080/api/location/all').then((response) => {
+    axios.get('http://localhost:8080/api/location/all?limit=10')
+    .then((response) => {
       const allLocation = JSON.parse(response);
       
       for (let loc in allLocation){
