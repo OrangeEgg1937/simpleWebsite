@@ -163,6 +163,19 @@ exports.addOrUpdateEvent = (req, res) => {
         // set the event id to the max id + 1
         dbModel.find().sort({ eventid: -1 }).limit(1)
             .then(data => {
+                // check the data is null or not
+                if (req.body.title == null || req.body.title == "" || req.body.title == undefined) {
+                    req.body.title = "TBD";
+                }
+                if (req.body.progtime == null || req.body.progtime == "" || req.body.progtime == undefined) {
+                    req.body.progtime = "TBD";
+                }
+                if (req.body.venueid == null || req.body.venueid == "" || req.body.venueid == undefined) {
+                    req.body.venueid = 100;
+                }
+                if (req.body.desce == null || req.body.desce == "" || req.body.desce == undefined) {
+                    req.body.desce = "TBD";
+                }
                 // create the event
                 const event = new dbModel({
                     eventid: data[0].eventid + 1,
@@ -180,7 +193,6 @@ exports.addOrUpdateEvent = (req, res) => {
                     });
             });
     }
-    // update the event
 
     // get the event id, event name, progtime, desce, presenterorge, price
     let id = req.body.id;
