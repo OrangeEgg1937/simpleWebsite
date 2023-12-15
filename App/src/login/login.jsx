@@ -67,7 +67,9 @@ const Login = (props) => {
                 } else {
                     seterrpr_msg("Incorrect user id or password");
                 }
-            })
+            }).catch(err => {
+                seterrpr_msg("Incorrect user id or password");
+            });
         }catch(err){
             seterrpr_msg("Incorrect user id or password")
         }

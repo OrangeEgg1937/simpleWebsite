@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { MDBDataTable } from 'mdbreact';
 import { Table } from 'react-bootstrap';
 import './favourite.css';
 
 const FavoriteLocationList = () => {
   const [favoriteLocations, setFavoriteLocations] = useState([]);
 
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  const userId = getCookie("userid");
+
   useEffect(() => {
     // Fetch the favorite locations data from the API
-    axios.get('http://localhost:8080/api/favorites') // Replace with the actual API endpoint for retrieving favorites
+    axios.get(`http://localhost:8080/api/users/${userId}/favorite`)
       .then(response => {
         const favoriteLocationsData = response.data;
         setFavoriteLocations(favoriteLocationsData);
@@ -17,35 +34,26 @@ const FavoriteLocationList = () => {
       .catch(error => {
         console.error('Error fetching favorite locations data:', error);
       });
-  }, []);
+  }, [userId]);
 
   const handleRemoveFavorite = (locationId) => {
-    // Send a request to the backend to remove the location from favorites
-    axios.delete(`http://localhost:8080/api/favorites/${locationId}`)
-      .then(response => {
-        // Update the favorite locations state after successful removal
-        setFavoriteLocations(prevLocations => prevLocations.filter(location => location._id !== locationId));
-      })
-      .catch(error => {
-        console.error('Error removing location from favorites:', error);
-      });
+    setFavoriteLocations(prevLocations => prevLocations.filter(location => location.id !== locationId));
   };
 
   const renderTableRows = () => {
     return favoriteLocations.map(location => (
-      <tr key={location._id}>
+      <tr key={location.id}>
         <td>{location.name}</td>
         <td>{location.latitude}</td>
         <td>{location.longitude}</td>
         <td>
-          <button variant="danger" onClick={() => handleRemoveFavorite(location._id)}>
+          <button variant="danger" onClick={() => handleRemoveFavorite(location.id)}>
             Remove
           </button>
         </td>
       </tr>
     ));
   };
-
 
   return (
     <div>
