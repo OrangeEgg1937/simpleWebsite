@@ -57,6 +57,119 @@ exports.login = (req, res) => {
         });
 }
 
+// Add or update the user data by userid
+exports.addOrUpdateUser = (req, res) => {
+    // Get the user id
+    let userid = req.body.userid;
+    let username = req.body.username;
+    let password = req.body.password;
+    let isAdmin = req.body.isAdmin;
+
+    // Find the user in the database
+    dbModel.findOne({ userid: userid })
+        .then(user => {
+            if (!user) {
+                // set the userid as the max userid + 1
+                dbModel.find().sort({ userid: -1 }).limit(1)
+                    .then(user => {
+                        let userid = user.userid + 1;
+                        // Check input data
+                        // if username is empty, give a default username
+                        if (username == "") {
+                            username = "user" + userid;
+                        }
+                        // if password is empty, give a default password
+                        if (password == "") {
+                            password = "123456";
+                        }
+                        if (isAdmin == "") {
+                            isAdmin = false;
+                        }
+                        // Create a new user
+                        let newUser = new dbModel({
+                            userid: userid,
+                            username: username,
+                            password: password,
+                            isAdmin: isAdmin,
+                        });
+
+                        // Save the user in the database
+                        newUser.save()
+                            .then(() => {
+                                res.json({
+                                    message: err.message || "New user added"
+                                });
+                            }).catch(err => {
+                                res.status(500).json({
+                                    message: err.message || "Some error occurred while creating the user."
+                                });
+                            });
+                    })
+            }
+            else {
+                // Check input data
+                if (username == "") {
+                    username = user.username;
+                }
+                if (password == "") {
+                    password = user.password;
+                }
+                if (isAdmin == "") {
+                    isAdmin = user.isAdmin;
+                }
+                user.username = username;
+                user.password = password;
+                user.isAdmin = isAdmin;
+                user.save().then(() => {
+                    res.status(200).json({
+                        message: "User data updated."
+                    });
+                });
+            }
+        }).catch(err => {
+            res.status(500).json({
+                message: err.message || "Some error occurred while retrieving users."
+            });
+        });
+
+}
+
+// Delete a user by userid by DELETE method
+exports.deleteUser = (req, res) => {
+    // Get the user id
+    let userid = parseInt(req.body.id)
+
+    // Find the user in the database
+    dbModel.findOne({ userid: userid })
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({
+                    message: "User not found with id " + userid
+                });
+            }
+            // Delete the user in the database
+            dbModel.deleteOne({ userid: userid })
+                .then(() => {
+                    res.status(200).json({
+                        message: "User deleted."
+                    });
+                }).catch(err => {
+                    res.status(500).json({
+                        message: err.message || "Some error occurred while deleting the user."
+                    });
+                });
+        }).catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).json({
+                    message: "User not found with id " + userid
+                });
+            }
+            return res.status(500).json({
+                message: "Error retrieving user with id " + userid
+            });
+        });
+}
+
 // Add a new user to the database
 exports.adduser = (req, res) => {
     // Create a new user
@@ -169,23 +282,23 @@ exports.writeFavoriteListByGet = (req, res) => {
             }
             // if the location is not in the favorite list, check the location is exist or not
             locationModel.find({ id: locid })
-            .then(location => {
-                if (!location) {
-                    return res.status(404).json({
-                        message: "Location not found with id " + locid
+                .then(location => {
+                    if (!location) {
+                        return res.status(404).json({
+                            message: "Location not found with id " + locid
+                        });
+                    }
+                    // if the location is exist, add the location to the favorite list
+                    user.favorite.push({
+                        locID: locid,
                     });
-                }
-                // if the location is exist, add the location to the favorite list
-                user.favorite.push({
-                    locID: locid,
-                });
-                
-                user.save().then(() => {
-                    res.status(200).json({
-                        message: "Favorite list updated."
+
+                    user.save().then(() => {
+                        res.status(200).json({
+                            message: "Favorite list updated."
+                        });
                     });
-                });
-            })
+                })
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).json({

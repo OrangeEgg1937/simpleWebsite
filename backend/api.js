@@ -22,6 +22,12 @@ api.all('/users/all', user.getAllUsers);
 // Definethe API to check the user is exist or not
 api.get('/users/exist', (req, res) => {res.json({ message: "Return true if user exist: " + req.query['id'] });});
 
+// Define the API for update and create user
+api.post('/users/update', user.addOrUpdateUser);
+
+// Define the API for delete user
+api.post('/users/delete', user.deleteUser);
+
 // Define the login API
 api.post('/users/login', user.login);
 
