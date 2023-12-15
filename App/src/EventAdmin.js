@@ -1,20 +1,16 @@
 import axios from "axios";
 import React from "react";
+import EventTable from "./eventTable";
+
 
 class EventAdmin extends React.Component {
-
-    // TODO: create event
-    handleCreateEvent = async (event) => {
-        event.preventDefault();
-    };
 
     handleSearchEvent = async (event) => {
         event.preventDefault();
         const eventId = document.getElementById('editSearchEventID').value;
 
         try {
-            //TODO: get event detail by eventId
-            // const response = await fetch()
+
             let eventDetails;
             axios.get(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/find?id=${eventId}`)
             .then((response) => {
@@ -45,6 +41,8 @@ class EventAdmin extends React.Component {
 
     handleUpdateEvent = async (event) => {
         event.preventDefault();
+
+        const eventId = document.getElementById('editSearchEventID').value;
         const eventTitle = document.getElementById('editEventTitle').value;
         const presenterOrg = document.getElementById('editPresenterOrg').value;
         const progTime = document.getElementById('editProgTime').value;
@@ -52,8 +50,8 @@ class EventAdmin extends React.Component {
         const price = document.getElementById('editPrice').value;
         const description = document.getElementById('editDesce').value;
 
-        // TODO: update event
         const data = {
+            id: eventId,
             desce: description,
             presenterorge: presenterOrg,
             price: price,
@@ -62,12 +60,19 @@ class EventAdmin extends React.Component {
             venueid: venueId
         };
 
-        // TODO: update event detail
+        axios.post(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/update`, data)
+        .catch((error) => console.log(error));
+
     };
 
-    // TODO: delete event
     handleDeleteEvent = async (event) => {
         event.preventDefault();
+        const eventId = document.getElementById('editSearchEventID').value;
+
+        axios.delete(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/delete`, {
+            id: eventId,
+        })
+        .catch((error) => console.log(error));
     };
 
     render() {
@@ -81,12 +86,12 @@ class EventAdmin extends React.Component {
         };
 
         const leftContainerStyle = {
-            width: "50%",
+            width: "48%",
             float: "left",
         };
 
         const rightContainerStyle = {
-            width: "50%",
+            width: "48%",
             float: "right",
         };
 
@@ -94,6 +99,7 @@ class EventAdmin extends React.Component {
             <>
                 <span style={leftContainerStyle}>
                     <h1>Event List</h1>
+                    <EventTable />
                 </span>
                 <span style={rightContainerStyle}>
                     <div>
@@ -130,7 +136,7 @@ class EventAdmin extends React.Component {
                             <textarea type="text" id="editDesce" name="editDesce" style={textareaStyle}></textarea>
                             <br />
 
-                            <button type="submit" id="submitCreate" value="submitCreate" className="btn btn-success" style={{margin: "0 0 5em 3em"}} onClick={this.handleCreateEvent}>Create</button>
+                            <button type="submit" id="submitCreate" value="submitCreate" className="btn btn-success" style={{margin: "0 0 5em 3em"}} onClick={this.handleUpdateEvent}>Create</button>
 
                             <button type="submit" id="submitUpdate" value="Submit Update" className="btn btn-warning" style={{margin: "0 0 5em 3em"}} onClick={this.handleUpdateEvent} >Update Event</button>
 

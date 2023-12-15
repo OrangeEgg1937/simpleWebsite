@@ -14,6 +14,11 @@ const EventTable = () => {
   const [data, setData] = useState({
     columns: [
       {
+        label: 'Event ID',
+        field: 'eventid',
+        sort: 'asc',
+      },
+      {
         label: 'Title',
         field: 'title',
         sort: 'asc',
@@ -46,15 +51,16 @@ const EventTable = () => {
     ],
     rows: [],
   });
-
   const [maxPrice, setMaxPrice] = useState('');
+  const [originalRows, setOriginalRows] = useState([]);
 
   useEffect(() => {
-    axios.get('https://crispy-space-computing-machine-v6gwxgpqv5r2x49g-8080.app.github.dev/api/events/find/by10loc')
+    axios.get('https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/find/by10loc')
       .then((response) => {
         const eventList = response.data;
         console.log(eventList);
         const updatedRows = eventList.map((event) => ({
+          eventid: event.eventid,
           title: event.title,
           venueId: event.venueid,
           time: event.progtime,
@@ -67,6 +73,7 @@ const EventTable = () => {
           ...prevData,
           rows: updatedRows,
         }));
+        setOriginalRows(updatedRows); // Store the original rows data
       })
       .catch((error) => {
         console.error('Error fetching event data:', error);
@@ -74,16 +81,29 @@ const EventTable = () => {
   }, []);
 
   const handleFilter = () => {
-    const filteredRows = data.rows.filter((row) => row.price <= maxPrice);
-
+    const filteredRows = originalRows.filter((row) => {
+      const priceValue = row.price.replace(/\D/g, ''); // Remove non-numeric characters
+      const price = parseInt(priceValue, 10); // Parse the numeric value
+      console.log(price);
+      return !isNaN(price) && price <= maxPrice;
+    });
+  
     setData((prevData) => ({
       ...prevData,
       rows: filteredRows,
     }));
   };
 
+  const handleClearFilter = () => {
+    setData((prevData) => ({
+      ...prevData,
+      rows: originalRows, // Restore the original rows data
+    }));
+    setMaxPrice(''); // Clear the filter input
+  };
+
   return (
-    <div>
+    <div className=".container" style={{width: "100%"}}>
       <input
         type="number"
         placeholder="Max Price"
@@ -91,6 +111,7 @@ const EventTable = () => {
         onChange={(e) => setMaxPrice(e.target.value)}
       />
       <button onClick={handleFilter}>Filter</button>
+      <button onClick={handleClearFilter}>Clear Filter</button>
       <MDBDataTable striped bordered data={data} searchable filter="price" />
     </div>
   );
