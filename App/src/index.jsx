@@ -10,7 +10,7 @@ import {
 import "./index.css";
 import EventAdmin from "./EventAdmin";
 import UserAdmin from "./UserAdmin";
-// import LocationTable from "./locTable"
+import LocationTable from "./locTable"
 // import Map from "./mapShow"
 // import EventTable from "./eventTable"
 // import Favourite from "./favourite"
@@ -28,7 +28,6 @@ class App extends React.Component {
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav>
                   <button><Link to="/loc/table" className="nav_link" >Location Table</Link></button>
-                  <button><Link to="/loc/map" className="nav_link">Map</Link></button>
                   <button><Link to="/event/table" className="nav_link">Event Table</Link></button>
                   <button><Link to="/favourite" className="nav_link">Favourite</Link></button>
                   <button><Link to="/admin/events" className="nav_link">Events</Link></button>
