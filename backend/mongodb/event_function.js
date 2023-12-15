@@ -24,3 +24,23 @@ exports.countEventByLocation = (req, res) => {
     });
 }
 
+// Return the event info by event id by get method
+exports.getEventInfo = (req, res) => {
+    // check the event id
+    if(!req.query['id']){
+        return res.status(404).json({
+            message: "Please provide the event id."
+        });
+    }
+
+    // find event by id
+    dbModel.findOne({eventid: req.query['id']})
+    .then(event => {
+        if(!event){
+            return res.status(404).json({
+                message: "Event not found with id " + req.query['id'] + "." + event
+            });
+        }
+        res.status(200).json(event);
+    });
+}
