@@ -76,41 +76,22 @@ exports.getLocationInfo = (req, res) => {
 exports.getLocationComment = (req, res) => {
   // get the location id
   let locid = req.query['id'];
-
-  locationModel.aggregate([
-    {
-      $match: {
-        id: locid,
-      },
-    },
-    {
-      $lookup: {
-        from: "users",
-        localField: "comments.userID.oid",
-        foreignField: "id.oid",
-        as: "commentUsers",
-      },
-    },
-    {
-      $unwind: "$comments",
-    },
-    {
-      $lookup: {
-        from: "users",
-        localField: "comments.userID.oid",
-        foreignField: "id.oid",
-        as: "comments.user",
-      },
-    },
-    {
-      $project: {
-        _id: 0,
-        comment: "$comments.comment",
-        username: { $arrayElemAt: ["$comments.user.username", 0] },
-      },
-    },
-  ]).then(data => {
+  console.log(locid);
+  locationModel.find({id : locid})
+  .populate('comments.userID')
+  .then(data => {
     console.log(data);
-    res.status(200).json(data);
+    // get all the comments with new format
+    // username and comment
+    let comments = [];
+    data.forEach(location => {
+      location.comments.forEach(comment => {
+        comments.push({
+          username: comment.userID.username,
+          comment: comment.comment,
+        });
+      });
+    });
+    res.status(200).json(comments);
   });
 }
