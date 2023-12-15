@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import React from 'react';
+import {React, useState} from 'react';
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import {
   BrowserRouter,
@@ -16,18 +16,10 @@ import {
   InfoWindow,
   } from "@vis.gl/react-google-maps";
 
-class MapShow extends React.Component {
-  render() {
-    return (
-        <APIProvider>
-          <div>
-            <Map></Map>
-          </div>
-        </APIProvider>
-      
-    );
+  const MapShow = () => {
+    
   }
-}
+
 
 
 
