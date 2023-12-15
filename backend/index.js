@@ -1,17 +1,13 @@
-// Import the module
-const express = require('express');
-
-// Initialize the app
-const app = express();
-
-// initial the cors
-const cors = require('cors');
-app.use(cors());
-app.use(express.json());
-
 // initial the cookie
 const cookieParser = require('cookie-parser');
+
+// init CORS
+var express = require('express');
+var cors = require('cors');
+var app = express();
+
 app.use(cookieParser());
+app.use(cors());
 
 // Connect to MongoDB
 const db = require("./mongodb/connection");

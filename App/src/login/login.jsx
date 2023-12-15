@@ -1,22 +1,32 @@
 // Create the login page
+import axios from "axios";
 import ReactDOM from "react-dom/client";
 import React from 'react';
 import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
+    BrowserRouter,
+    Routes,
+    Route,
+    Link,
 } from 'react-router-dom';
 
-class Login extends React.Component {
-    render() {
-        return (
-            <div>
-            <h1>Login Page</h1>
-            <button><Link to="/home">Login</Link></button>
-            </div>
-        );
-    }
-}
+const baseURL = "https://automatic-space-invention-jqgvgpr4956h5wv9-8080.app.github.dev/api/locations/find10";
 
-export default Login;
+export default function Login() {
+    const [post, setPost] = React.useState(null);
+
+    React.useEffect(() => {
+        axios.get(baseURL).then((response) => {
+            setPost(response.data);
+            console.log(response.data);
+        });
+    }, []);
+
+    if (!post) return null;
+
+    return (
+        <div>
+            <h1>{post.title}</h1>
+            <p>{post.body}</p>
+        </div>
+    );
+}
