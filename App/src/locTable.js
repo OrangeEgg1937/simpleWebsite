@@ -38,7 +38,7 @@ const LocationTable = () => {
         const allLocation = response.data;
 
         const rows = allLocation.map(loc => ({
-          name: <Link to={`loc/detail/${loc.venue_id}`}>{loc.name}</Link>,
+          name: <Link to={`https://miniature-giggle-69v95pvwv7rh45qw-3000.app.github.dev/loc/detail/${loc.venue_id}`}>{loc.name}</Link>,
           button: <button onClick={() => handleClick(loc)}>Click me</button>,
         }));
 
@@ -60,8 +60,6 @@ const LocationTable = () => {
     // Handle click logic here
   };
 
-
-
   const [open, setOpen] = useState(false);
   
   const rightContainerStyle = {
@@ -72,7 +70,6 @@ const LocationTable = () => {
     width: "48%",
     float: "left",
   };
-
   const middlept = {lat:22.302711, lng:	114.177216};
 
   return (

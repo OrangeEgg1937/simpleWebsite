@@ -57,9 +57,9 @@ const Login = (props) => {
             }).then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
-                    setCookie("username", userid, 1);
+                    setCookie("userid", userid, 1);
                     setCookie("token", res.data.token, 0.1);
-                    console.log(getCookie("username"));
+                    console.log(getCookie("userid"));
                     console.log(getCookie("token"));
                     axios.get("https://automatic-space-invention-jqgvgpr4956h5wv9-8080.app.github.dev/api/users/check", {})
                     .then(res => {console.log(res.data);})
