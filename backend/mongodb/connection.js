@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // Database connection
-mongoose.connect('mongodb://localhost:27017/testDB');
+mongoose.connect('mongodb://localhost:27017/projectDB');
 
 // check connection
 const db = mongoose.connection;
