@@ -25,7 +25,21 @@ exports.login = (req, res) => {
                 message: "Password is not correct"
             });
         }
-        res.json(user);
+        // Generate the token and send it 
+        var gen_token = require('crypto').randomBytes(64).toString('hex');
+        
+        // Update the token in the database
+        user.token = gen_token;
+        user.save().then(() => {
+            res.cookie(token, gen_token, {expire: 3600000 + Date.now()});  // expire in 1 hour
+            console.log("Login success!");
+            res.json({
+                status: 200,
+                message: "Login success",
+                token: user.token,
+            });
+        });
+
     }).catch(err => {
         if(err.kind === 'ObjectId'){
             return res.status(404).json({

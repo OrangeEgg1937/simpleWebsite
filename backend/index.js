@@ -1,6 +1,5 @@
 // Import the module
 const express = require('express');
-const cors = require('cors');
 
 // Initialize the app
 const app = express();
