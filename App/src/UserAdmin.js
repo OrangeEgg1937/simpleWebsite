@@ -10,7 +10,7 @@ class UserAdmin extends React.Component {
         let username = document.getElementById('editUsername').value;
         let password = document.getElementById('editPassword').value;
         console.log(userId, username, password);
-        axios.post('https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/users/update' , {
+        axios.post('http://localhost:8080/api/users/update' , {
             userid: userId,
             username: username,
             password: password,
@@ -27,7 +27,7 @@ class UserAdmin extends React.Component {
         try {
             //TODO: get user detail by userI
             let userDetails;
-            axios.get(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/users/all`)
+            axios.get(`http://localhost:8080/api/users/all`)
             
             .then((response) => {
                 userDetails = response.data;
@@ -50,7 +50,7 @@ class UserAdmin extends React.Component {
         event.preventDefault();
         const userId = document.getElementById('editSearchUserID').value;
 
-        axios.delete(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/users/delete` , {
+        axios.delete(`http://localhost:8080/api/users/delete` , {
             id: userId,
         })
         .catch((error) => console.log(error));

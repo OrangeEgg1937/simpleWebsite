@@ -23,19 +23,20 @@ const FavoriteLocationList = () => {
   }
 
   const userId = getCookie("userid");
-
+  console.log(userId);
   useEffect(() => {
     // Fetch the favorite locations data from the API
-    axios.get(`http://localhost:8080/api/users/${userId}/favorite`)
+    axios.get(`http://localhost:8080/api/users/favorite?id=${userId}`)
       .then(response => {
         const favoriteLocationsData = response.data;
         setFavoriteLocations(favoriteLocationsData);
+        
       })
       .catch(error => {
         console.error('Error fetching favorite locations data:', error);
       });
   }, [userId]);
-
+  
   const handleRemoveFavorite = (locationId) => {
     setFavoriteLocations(prevLocations => prevLocations.filter(location => location.id !== locationId));
   };

@@ -323,7 +323,7 @@ exports.writeFavoriteList = (req, res) => {
                     message: "User not found with id " + userid
                 });
             }
-            user.favorite = favorite;
+            user.favorite.push(favorite);
             user.save().then(() => {
                 res.status(200).json({
                     message: "Favorite list updated."

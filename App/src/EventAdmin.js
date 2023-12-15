@@ -12,7 +12,7 @@ class EventAdmin extends React.Component {
         try {
 
             let eventDetails;
-            axios.get(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/find?id=${eventId}`)
+            axios.get(`http://localhost:8080/api/events/find?id=${eventId}`)
             .then((response) => {
                 eventDetails = response.data;
                 console.log(response.data);
@@ -60,7 +60,7 @@ class EventAdmin extends React.Component {
             venueid: venueId
         };
 
-        axios.post(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/update`, data)
+        axios.post(`http://localhost:8080/api/events/update`, data)
         .catch((error) => console.log(error));
 
     };
@@ -69,7 +69,7 @@ class EventAdmin extends React.Component {
         event.preventDefault();
         const eventId = document.getElementById('editSearchEventID').value;
 
-        axios.delete(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/delete`, {
+        axios.delete(`http://localhost:8080/api/events/delete`, {
             id: eventId,
         })
         .catch((error) => console.log(error));
