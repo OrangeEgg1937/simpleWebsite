@@ -8,7 +8,6 @@ import {
   Link,
 } from 'react-router-dom';
 import "./index.css";
-import Login from "./login/login"
 // import LocationTable from "./locTable"
 // import Map from "./mapShow"
 // import EventTable from "./eventTable"
@@ -30,6 +29,7 @@ class App extends React.Component {
                   <button><Link to="/loc/map" className="nav_link">Map</Link></button>
                   <button><Link to="/event/table" className="nav_link">Event Table</Link></button>
                   <button><Link to="/favourite" className="nav_link">Favourite</Link></button>
+                  <button><Link to="/event/admin" className="nav_link">Events</Link></button>
                   <button><Link to="/login">Login</Link></button>
                 </Nav>
               </Navbar.Collapse>
@@ -43,6 +43,7 @@ class App extends React.Component {
             <Route path="/event/table" element={<NoMatch />} />
             <Route path="/favourite" element={<NoMatch />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/loc/detail/:locName" element={<NoMatch />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </BrowserRouter>
