@@ -26,7 +26,7 @@ api.get('/users/exist', (req, res) => {res.json({ message: "Return true if user 
 api.post('/users/update', user.addOrUpdateUser);
 
 // Define the API for delete user
-api.post('/users/delete', user.deleteUser);
+api.delete('/users/delete', user.deleteUser);
 
 // Define the login API
 api.post('/users/login', user.login);
