@@ -61,11 +61,10 @@ exports.login = (req, res) => {
 exports.addOrUpdateUser = (req, res) => {
     console.log(req.body);
     // Get the user id
-    let userid = req.body.userid;
+    let userid = parseInt(req.body.userid);
     let username = req.body.username;
     let password = req.body.password;
     let isAdmin = req.body.isAdmin;
-
     // Find the user in the database
     dbModel.findOne({ userid: userid })
         .then(user => {
@@ -73,11 +72,11 @@ exports.addOrUpdateUser = (req, res) => {
                 // set the userid as the max userid + 1
                 dbModel.find().sort({ userid: -1 }).limit(1)
                     .then(user => {
-                        let userid = user.userid + 1;
+                        let userId = user[0].userid + 1;
                         // Check input data
                         // if username is empty, give a default username
                         if (username == "") {
-                            username = "user" + userid;
+                            username = "user" + userId;
                         }
                         // if password is empty, give a default password
                         if (password == "") {
@@ -88,17 +87,16 @@ exports.addOrUpdateUser = (req, res) => {
                         }
                         // Create a new user
                         let newUser = new dbModel({
-                            userid: userid,
+                            userid: userId,
                             username: username,
                             password: password,
                             isAdmin: isAdmin,
                         });
-
                         // Save the user in the database
                         newUser.save()
                             .then(() => {
-                                res.json({
-                                    message: err.message || "New user added"
+                                res.status(200).json({
+                                    message: "New user added"
                                 });
                             }).catch(err => {
                                 res.status(500).json({
