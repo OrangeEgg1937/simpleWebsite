@@ -3,9 +3,11 @@ const cookieParser = require('cookie-parser');
 
 // init CORS
 var express = require('express');
+const bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
 
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
