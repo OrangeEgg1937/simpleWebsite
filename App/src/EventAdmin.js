@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 
 class EventAdmin extends React.Component {
@@ -14,27 +15,20 @@ class EventAdmin extends React.Component {
         try {
             //TODO: get event detail by eventId
             // const response = await fetch()
-            // const eventDetails = await Response.json();
-            const eventDetails = {
-                "_id": {
-                    "$oid": "657bf1a9511cba7043c04612"
-                },
-                "eventid": 154881,
-                "__v": 0,
-                "desce": "For details, please refer to the facebook page of the presenter",
-                "presenterorge": "Presented by Make Friends With Puppet",
-                "price": "$240",
-                "progtime": "15 Dec 2023 (Fri) 7:45pm\n16 Dec 2023 (Sat) 2:30pm, 7:45pm\n17 Dec 2023 (Sun) 11:00am, 2:30pm, 5:00pm",
-                "title": "‘Cheers!’ Series: Sweetyland III A Whistle of Dreams by Make Friends With Puppet",
-                "venueid": 36310036
-            };
-
-            document.getElementById('editEventTitle').value = eventDetails.title;
-            document.getElementById('editPresenterOrg').value = eventDetails.presenterorge;
-            document.getElementById('editProgTime').value = eventDetails.progtime;
-            document.getElementById('editVenueId').value = eventDetails.venueid;
-            document.getElementById('editPrice').value = eventDetails.price;
-            document.getElementById('editDesce').value = eventDetails.desce;
+            let eventDetails;
+            axios.get(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/find?id=${eventId}`)
+            .then((response) => {
+                eventDetails = response.data;
+                console.log(response.data);
+                document.getElementById('editEventTitle').value = eventDetails.title;
+                document.getElementById('editPresenterOrg').value = eventDetails.presenterorge;
+                document.getElementById('editProgTime').value = eventDetails.progtime;
+                document.getElementById('editVenueId').value = eventDetails.venueid;
+                document.getElementById('editPrice').value = eventDetails.price;
+                document.getElementById('editDesce').value = eventDetails.desce;
+    
+            })
+            .catch((error) => console.log(error));
 
         } catch (error) {
             console.error('Error fetching event details:', error);
@@ -113,42 +107,42 @@ class EventAdmin extends React.Component {
                     <div>
                         <h3>Create / Update / Delete Event</h3>
                         <form id="searchEventForm">
-                            <label for="editSearchEventID" style={{ fontWeight: 'bold' }}>Event ID:</label>
+                            <label htmlFor="editSearchEventID" style={{ fontWeight: 'bold' }}>Event ID:</label>
                             <input type="text" id="editSearchEventID" name="editSearchEventID" style={{ width: "60%", padding: "0.5em", margin: "0.5em 1em 0.5em 2em", boxSizing: "border-box", borderRadius: "8px", }} />
-                            <input type="submit" value="Search" onClick={this.handleSearch} class="btn btn-info" />
+                            <input type="submit" value="Search" onClick={this.handleSearchEvent} className="btn btn-info" />
                             <br />
                         </form>
 
                         <form id="updateEventForm">
-                            <label for="editEventTitle" style={{ fontWeight: 'bold' }}>Title:</label><br />
+                            <label htmlFor="editEventTitle" style={{ fontWeight: 'bold' }}>Title:</label><br />
                             <textarea type="text" id="editEventTitle" name="editEventTitle" style={textareaStyle}></textarea>
                             <br />
 
-                            <label for="editPresenterOrg" style={{ fontWeight: 'bold' }}>Presenter Organization:</label><br />
+                            <label htmlFor="editPresenterOrg" style={{ fontWeight: 'bold' }}>Presenter Organization:</label><br />
                             <textarea type="text" id="editPresenterOrg" name="editPresenterOrg" style={textareaStyle}></textarea>
                             <br />
 
-                            <label for="editProgTime" style={{ fontWeight: 'bold' }}>Program Time:</label><br />
+                            <label htmlFor="editProgTime" style={{ fontWeight: 'bold' }}>Program Time:</label><br />
                             <textarea type="text" id="editProgTime" name="editProgTime" style={textareaStyle}></textarea>
                             <br />
 
-                            <label for="editVenueId" style={{ fontWeight: 'bold' }}>Venue ID:</label><br />
+                            <label htmlFor="editVenueId" style={{ fontWeight: 'bold' }}>Venue ID:</label><br />
                             <textarea type="text" id="editVenueId" name="editVenueId" style={textareaStyle}></textarea>
                             <br />
 
-                            <label for="editPrice" style={{ fontWeight: 'bold' }}>Price:</label><br />
+                            <label htmlFor="editPrice" style={{ fontWeight: 'bold' }}>Price:</label><br />
                             <textarea type="text" id="editPrice" name="editPrice" style={textareaStyle}></textarea>
                             <br />
 
-                            <label for="editDesce" style={{ fontWeight: 'bold' }}>Description:</label><br />
+                            <label htmlFor="editDesce" style={{ fontWeight: 'bold' }}>Description:</label><br />
                             <textarea type="text" id="editDesce" name="editDesce" style={textareaStyle}></textarea>
                             <br />
 
-                            <button type="submit" id="submitCreate" value="submitCreate" class="btn btn-success" style={{margin: "0 0 5em 3em"}} onClick={}>Create</button>
+                            <button type="submit" id="submitCreate" value="submitCreate" className="btn btn-success" style={{margin: "0 0 5em 3em"}} onClick={this.handleCreateEvent}>Create</button>
 
-                            <button type="submit" id="submitUpdate" value="Submit Update" class="btn btn-warning" style={{margin: "0 0 5em 3em"}} onClick={this.handleUpdateEvent} >Update Event</button>
+                            <button type="submit" id="submitUpdate" value="Submit Update" className="btn btn-warning" style={{margin: "0 0 5em 3em"}} onClick={this.handleUpdateEvent} >Update Event</button>
 
-                            <button type="submit" id="submitDelete" value="submitDelete" class="btn btn-danger" style={{margin: "0 0 5em 3em"}} onClick={this.handleDeleteEvent} >Delete</button>
+                            <button type="submit" id="submitDelete" value="submitDelete" className="btn btn-danger" style={{margin: "0 0 5em 3em"}} onClick={this.handleDeleteEvent} >Delete</button>
                         </form>
 
                     </div>
