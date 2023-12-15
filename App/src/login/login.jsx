@@ -34,7 +34,7 @@ const Login = (props) => {
     const [userid, setuserID] = useState("")
     const [password, setPassword] = useState("")
     const [error_msg, seterrpr_msg] = useState("")
-
+    
     const navigate = useNavigate();
 
     const onButtonClick = () => {
@@ -59,7 +59,9 @@ const Login = (props) => {
                     console.log(res.data);
                     setCookie("userid", userid, 1);
                     setCookie("token", res.data.token, 0.1);
+                    setCookie("username", res.data.username, 1);
                     console.log(getCookie("userid"));
+                    console.log(getCookie("token"));
                     console.log(getCookie("token"));
                     axios.get("https://automatic-space-invention-jqgvgpr4956h5wv9-8080.app.github.dev/api/users/check", {})
                     .then(res => {console.log(res.data);})

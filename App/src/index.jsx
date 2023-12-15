@@ -17,8 +17,57 @@ import LocationTable from "./locTable"
 // import Favourite from "./favourite"
 import LocationDetail from "./locDetail"
 
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+
 class App extends React.Component {
+  // using state to store the change
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogined: '0',
+      isAdmin: '0',
+      isNormalUser: '0',
+      click: '0',
+    };
+  }
+
+  loginCheck = (loginID) => {
+    this.setState({isLogined: loginID});
+  }
+
+  userOnClick(e){
+    if (this.click === '0') {
+      this.setState({click: '1'});
+    }else {
+      this.setState({click: '0'});
+    }
+  }
+
   render() {
+    // get the cookie user name
+    const username = getCookie("username");
     return (
       <div>
         <BrowserRouter>
@@ -28,12 +77,13 @@ class App extends React.Component {
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav>
-                  <button><Link to="/loc/table" className="nav_link" >Location Table</Link></button>
-                  <button><Link to="/event/table" className="nav_link">Event Table</Link></button>
-                  <button><Link to="/favourite" className="nav_link">Favourite</Link></button>
-                  <button><Link to="/admin/events" className="nav_link">Events</Link></button>
-                  <button><Link to="/admin/users" className="nav_link">Users</Link></button>
-                  <button><Link to="/login">Login</Link></button>
+                  <button onClick={(e)=>this.userOnClick(e)}><Link to="/loc/table" className="nav_link" >Location Table</Link></button>
+                  <button onClick={(e)=>this.userOnClick(e)}><Link to="/event/table" className="nav_link">Event Table</Link></button>
+                  <button onClick={(e)=>this.userOnClick(e)}><Link to="/favourite" className="nav_link">Favourite</Link></button>
+                  <button onClick={(e)=>this.userOnClick(e)}><Link to="/admin/events" className="nav_link">Events</Link></button>
+                  <button onClick={(e)=>this.userOnClick(e)}><Link to="/admin/users" className="nav_link">Users</Link></button>
+                  <button onClick={(e)=>this.userOnClick(e)}><Link to={this.isLogined ? "/":"/login"}>{ this.isLogined ? "Log out" : "Log in"}</Link></button>
+                  {username}
                 </Nav>
               </Navbar.Collapse>
             </Container>
