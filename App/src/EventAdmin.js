@@ -72,14 +72,6 @@ class EventAdmin extends React.Component {
 
     render() {
 
-        const inputStyle = {
-            width: "80%",
-            padding: "0.5em",
-            margin: "0.5em 0 0.5em 2em",
-            boxSizing: "border-box",
-            borderRadius: "8px",
-        };
-
         const textareaStyle = {
             width: "80%",
             padding: "0.5em",
@@ -105,7 +97,7 @@ class EventAdmin extends React.Component {
                 </span>
                 <span style={rightContainerStyle}>
                     <div>
-                        <h3>Create / Update / Delete Event</h3>
+                        <h3 style={{margin: "0 0 0 2em"}}>Create / Update / Delete Event</h3>
                         <form id="searchEventForm">
                             <label htmlFor="editSearchEventID" style={{ fontWeight: 'bold' }}>Event ID:</label>
                             <input type="text" id="editSearchEventID" name="editSearchEventID" style={{ width: "60%", padding: "0.5em", margin: "0.5em 1em 0.5em 2em", boxSizing: "border-box", borderRadius: "8px", }} />
