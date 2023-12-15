@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
+    "init": "node ./mongodb/init_data/initial_local_database.js",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

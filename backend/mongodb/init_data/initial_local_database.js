@@ -11,6 +11,9 @@ const userModel = require("../schema").GetuserModel;
 const eventModel = require("../schema").GeteventModel;
 const venueModel = require("../schema").GetvenueModel;
 
+// import xml2js Module 
+let xmlParser = require('xml2json');
+
 // init data into database
 connection.once('open', function () {
     console.log("MongoDB database connected successfully");
@@ -35,14 +38,14 @@ connection.once('open', function () {
     .then(() => {
         console.log("User1 added");
     }).catch(err => {
-        console.log("Error adding user1");
+        console.log("Error adding user1 (you have already created)");
     });
 
     user2.save()
     .then(() => {
         console.log("User2 added");
     }).catch(err => {
-        console.log("Error adding user2");
+        console.log("Error adding user2 (you have already created)");
     });
 
     // fetch data from gov
