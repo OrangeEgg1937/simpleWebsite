@@ -49,6 +49,9 @@ api.get('/users/comment', user.writeCommentByGet);
 // Define the API for the add the dummy favorite list
 api.get('/users/favorite/add', user.writeFavoriteListByGet);
 
+// Define the API for check user cookie
+api.get('/users/check', user.checkCookie);
+
 // ===== Location API =======
 
 // Define the API for getting the location which have at least 3 events

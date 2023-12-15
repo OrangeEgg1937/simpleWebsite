@@ -10,6 +10,7 @@ import {
 import "./index.css";
 import EventAdmin from "./EventAdmin";
 import UserAdmin from "./UserAdmin";
+import Login from "./login/login"
 import LocationTable from "./locTable"
 // import Map from "./mapShow"
 // import EventTable from "./eventTable"
@@ -38,7 +39,6 @@ class App extends React.Component {
             </Container>
           </Navbar>
           </header>
-          <h3>Content</h3>
           <Routes>
             {/* <Route path="/loc/table" element={<LocationTable />} /> */}
             <Route path="/loc/map" element={<NoMatch />} />
@@ -46,7 +46,7 @@ class App extends React.Component {
             <Route path="/favourite" element={<NoMatch />} />
             <Route path="/admin/events" element={<EventAdmin />} />
             <Route path="/admin/users" element={<UserAdmin />} />
-            {/* <Route path="/login" element={<Login />} /> */}
+            {<Route path="/login" element={<Login />} />}
             <Route path="/loc/detail/:locName" element={<NoMatch />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
