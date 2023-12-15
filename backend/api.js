@@ -70,7 +70,6 @@ api.get('/events/find', event.getEventInfo);
 // Deifne the API for getting the event info which the location is equal to the top 10
 api.get('/events/find/by10loc', event.findeventwith10);
 
-
 // If api is not defined, return 404
 api.get('/*', (req, res) => {
     res.json({ message: "404 not found." });
