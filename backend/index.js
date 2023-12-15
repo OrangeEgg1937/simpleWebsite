@@ -5,7 +5,6 @@ const express = require('express');
 const app = express();
 
 // initial the cors
-const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
