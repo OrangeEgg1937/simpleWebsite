@@ -18,6 +18,9 @@ api.all('/users/all', user.getAllUsers);
 // Definethe API to check the user is exist or not
 api.get('/users/exist', (req, res) => {res.json({ message: "Return true if user exist: " + req.query['id'] });});
 
+// Define the login API
+api.post('/users/login', user.login);
+
 // Definethe API for fetching data from gov
 api.get('/users/login/success', fetchData.fetchData);
 

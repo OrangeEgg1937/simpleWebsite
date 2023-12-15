@@ -5,8 +5,18 @@ const cors = require('cors');
 // Initialize the app
 const app = express();
 
+// initial the cors
+const cors = require('cors');
+app.use(cors());
+app.use(express.json());
+
+// initial the cookie
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 // Connect to MongoDB
 const db = require("./mongodb/connection");
+
 
 // Check the connection
 db.once('error', console.error.bind(console, 'connection error:'));

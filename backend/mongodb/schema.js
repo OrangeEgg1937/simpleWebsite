@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
     username: String,
     password: String,
     isAdmin: Boolean,
+    token: String,
 })
 const userModel = mongoose.model('user', userSchema);
 

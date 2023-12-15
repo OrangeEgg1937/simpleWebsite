@@ -1,35 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #FFCC00;
-  padding: 20px;
-  margin: 0;
+  background-image: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.52),
+      rgba(255, 255, 255, 0.73)),
+    url("https://newsstatic.rthk.hk/images/mfile_1716993_1_20230906154554.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
-h1, h2, p, ul, li {
-  font-family: sans-serif;
+
+header {
+  width: 100%;
+  align-items: left;
+  background-color: rgba(0, 0, 0, 0.2);
 }
-ul.header li {
-  display: inline;
-  list-style-type: none;
-  margin: 0;
-}
-ul.header {
-  background-color: #111;
-  padding: 0;
-}
-ul.header li a {
-  color: #FFF;
-  font-weight: bold;
+
+header button {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
   text-decoration: none;
-  padding: 20px;
-  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
-.content {
-  background-color: #FFF;
-  padding: 20px;
-}
-.content h2 {
-  padding: 0;
-  margin: 0;
-}
-.content li {
-  margin-bottom: 10px;
+
+header button a{
+  color: white !important;
+  text-decoration: none; 
 }

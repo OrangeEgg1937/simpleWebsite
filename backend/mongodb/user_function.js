@@ -6,6 +6,38 @@ db = require("./connection");
 // Define user model
 const dbModel = require("./schema").GetuserModel;
 
+// Login by POST
+exports.login = (req, res) => {
+    // Get the user id
+    let userid = req.body.userid;
+    let password = req.body.password;
+
+    // Find the user in the database
+    dbModel.findOne({userid: userid})
+    .then(user => {
+        if(!user){
+            return res.status(404).json({
+                message: "User not found with id " + userid
+            });
+        }
+        if(user.password != password){
+            return res.status(404).json({
+                message: "Password is not correct"
+            });
+        }
+        res.json(user);
+    }).catch(err => {
+        if(err.kind === 'ObjectId'){
+            return res.status(404).json({
+                message: "User not found with id " + userid
+            });
+        }
+        return res.status(500).json({
+            message: "Error retrieving user with id " + userid
+        });
+    });
+}
+
 // Add a new user to the database
 exports.adduser = (req, res) => {
     // Create a new user
