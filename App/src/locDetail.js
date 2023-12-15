@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Card, Form } from 'react-bootstrap';
-import { useParams } from "react-router-dom";
 
 const LocationDetailPage = () => {
 
@@ -39,10 +38,11 @@ const LocationDetailPage = () => {
       });
   }, [locationId]);
   
+
   const handleAddComment = () => {
     // Send a request to the backend to add a new comment
     axios.post(`https://miniature-giggle-69v95pvwv7rh45qw-8080.app.github.dev/api/users/comment/write`, {
-      userid: getCookie("userid"), // Replace with the actual userId value
+      userid: parseInt(getCookie("userid")), // Replace with the actual userId value
       locid: locationId, // Replace with the actual locId value
       comment: newComment // Replace with the actual newComment value
     }) // Replace with the actual API endpoint for adding a comment
@@ -59,11 +59,11 @@ const LocationDetailPage = () => {
   const handleAddFavorite = () => {
     // Send a request to the backend to toggle the favorite status of the location
     axios.post(`https://miniature-giggle-69v95pvwv7rh45qw-8080.app.github.dev/api/users/favorite/write`,{
-      userid: document.cookies.userid, 
+      userid: parseInt(getCookie("userid")), 
       favourite: locationId,
     }) 
       .then(response => {
-        
+        console.log(response);
       })
       .catch(error => {
         console.error('Error adding favorite:', error);
