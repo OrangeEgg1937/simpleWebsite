@@ -32,10 +32,8 @@ exports.login = (req, res) => {
             // Update the token in the database
             user.token = gen_token;
             user.save().then(() => {
-                res.cookie(token, gen_token, { expire: 3600000 + Date.now() });  // expire in 1 hour
-                res.cookie(userid, userid); // return the userid
                 console.log("Login success!");
-                res.json({
+                res.status(200).json({
                     status: 200,
                     message: "Login success",
                     userid: user.userid,
