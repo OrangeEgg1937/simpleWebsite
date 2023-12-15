@@ -8,6 +8,7 @@ import {
   Link,
 } from 'react-router-dom';
 import "./index.css";
+import EventAdmin from "./EventAdmin";
 // import LocationTable from "./locTable"
 // import Map from "./mapShow"
 // import EventTable from "./eventTable"
@@ -38,7 +39,7 @@ class App extends React.Component {
           </header>
           <h3>Content</h3>
           <Routes>
-            <Route path="/loc/table" element={<NoMatch />} />
+            <Route path="/loc/table" element={<LocationTable />} />
             <Route path="/loc/map" element={<NoMatch />} />
             <Route path="/event/table" element={<NoMatch />} />
             <Route path="/favourite" element={<NoMatch />} />
