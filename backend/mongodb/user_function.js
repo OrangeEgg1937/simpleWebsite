@@ -40,6 +40,7 @@ exports.login = (req, res) => {
                     message: "Login success",
                     userid: user.userid,
                     username: user.username,
+                    isAdmin: user.isAdmin,
                     token: user.token,
                 });
             });

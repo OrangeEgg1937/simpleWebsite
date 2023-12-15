@@ -86,8 +86,8 @@ exports.getLocationComment = (req, res) => {
     {
       $lookup: {
         from: "users",
-        localField: "comments.userID",
-        foreignField: "_id.oid",
+        localField: "comments.userID.oid",
+        foreignField: "id.oid",
         as: "commentUsers",
       },
     },
@@ -97,8 +97,8 @@ exports.getLocationComment = (req, res) => {
     {
       $lookup: {
         from: "users",
-        localField: "comments.userID",
-        foreignField: "_id.oid",
+        localField: "comments.userID.oid",
+        foreignField: "id.oid",
         as: "comments.user",
       },
     },

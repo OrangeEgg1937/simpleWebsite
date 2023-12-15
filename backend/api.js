@@ -61,6 +61,8 @@ api.get('/events/find/by/location', event.countEventByLocation);
 // Define the API for getting the event info by event id
 api.get('/events/find', event.getEventInfo);
 
+// Deifne the API for getting the event which the 
+
 
 // If api is not defined, return 404
 api.get('/*', (req, res) => {
