@@ -1,5 +1,7 @@
 import axios from "axios";
 import React from "react";
+import EventTable from "./eventTable";
+
 
 class EventAdmin extends React.Component {
 
@@ -94,6 +96,7 @@ class EventAdmin extends React.Component {
             <>
                 <span style={leftContainerStyle}>
                     <h1>Event List</h1>
+                    <EventTable />
                 </span>
                 <span style={rightContainerStyle}>
                     <div>

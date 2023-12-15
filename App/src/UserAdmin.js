@@ -3,7 +3,7 @@ import React from "react";
 
 class UserAdmin extends React.Component {
 
-    // TODO: create user
+    // Create or Update User
     handleCreateOrUpdateUser = async (event) => {
         event.preventDefault();
         let userId = document.getElementById('editSearchUserID').value;
@@ -19,6 +19,7 @@ class UserAdmin extends React.Component {
         .catch((error) => console.log(error));
     };
 
+    // Search User
     handleSearchUser = async (event) => {
         event.preventDefault();
         const eventId = document.getElementById('editSearchUserID').value;
