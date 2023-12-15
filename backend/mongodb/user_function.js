@@ -314,8 +314,6 @@ exports.writeFavoriteList = (req, res) => {
     let userid = req.body.userid;
     let favorite = req.body.favorite;
 
-    // Get the user token from cookie
-    let token = req.cookies.token;
 
     // Find the user in the database
     dbModel.findOne({ userid: userid })
@@ -323,11 +321,6 @@ exports.writeFavoriteList = (req, res) => {
             if (!user) {
                 return res.status(404).json({
                     message: "User not found with id " + userid
-                });
-            }
-            if (user.token != token) {
-                return res.status(401).json({
-                    message: "Token is expired, plaese login again."
                 });
             }
             user.favorite = favorite;
@@ -355,20 +348,12 @@ exports.writeCommentByGet = (req, res) => {
     let locid = req.query['locid'];
     let comment = req.query['comment'];
 
-    // Get the user token from cookie
-    let token = req.cookies.token;
-
     // Find the user in the database
     dbModel.findOne({ userid: userid })
         .then(user => {
             if (!user) {
                 return res.status(404).json({
                     message: "User not found with id " + userid
-                });
-            }
-            if (user.token != token) {
-                return res.status(401).json({
-                    message: "Token is expired, plaese login again."
                 });
             }
             // if the user is exist, find the location in the database
@@ -410,20 +395,12 @@ exports.writeComment = (req, res) => {
     let locid = req.body.locid;
     let comment = req.body.comment;
 
-    // Get the user token from cookie
-    let token = req.cookies.token;
-
     // Find the user in the database
     dbModel.findOne({ userid: userid })
         .then(user => {
             if (!user) {
                 return res.status(404).json({
                     message: "User not found with id " + userid
-                });
-            }
-            if (user.token != token) {
-                return res.status(401).json({
-                    message: "Token is expired, plaese login again."
                 });
             }
             // if the user is exist, find the location in the database
@@ -458,4 +435,27 @@ exports.writeComment = (req, res) => {
         });
 }
 
-// Define the API for 
+// Define the API for check the user cookie
+exports.checkCookie = (req, res) => {
+    // Get the user id
+    let userid = req.cookies.username;
+
+    // Get the user token from cookie
+    let token = req.cookies.token;
+
+    console.log(userid);
+    console.log(token);
+
+    // Find the user in the database
+    dbModel.findOne({ userid: userid })
+        .then(user => {
+            if (!user) {
+                return res.status(200).json({
+                    message: "User not found with id " + userid
+                });
+            }
+            return res.status(200).json({
+                message: "Token is valid."
+            });
+        });
+}

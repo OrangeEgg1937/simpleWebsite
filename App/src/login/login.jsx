@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import axios from "axios";
-import { get } from "http";
 
 const URL = "https://automatic-space-invention-jqgvgpr4956h5wv9-8080.app.github.dev/api/users/login"
 
@@ -62,6 +61,8 @@ const Login = (props) => {
                     setCookie("token", res.data.token, 0.1);
                     console.log(getCookie("username"));
                     console.log(getCookie("token"));
+                    axios.get("https://automatic-space-invention-jqgvgpr4956h5wv9-8080.app.github.dev/api/users/check", {})
+                    .then(res => {console.log(res.data);})
                     navigate("../index", { replace: true });
                 } else {
                     seterrpr_msg("Incorrect user id or password");
