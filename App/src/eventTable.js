@@ -46,11 +46,11 @@ const EventTable = () => {
     ],
     rows: [],
   });
-
   const [maxPrice, setMaxPrice] = useState('');
+  const [originalRows, setOriginalRows] = useState([]);
 
   useEffect(() => {
-    axios.get('https://crispy-space-computing-machine-v6gwxgpqv5r2x49g-8080.app.github.dev/api/events/find/by10loc')
+    axios.get('https://miniature-eureka-vxjqrr96jrrhpr6w-8080.app.github.dev/api/events/find/by10loc')
       .then((response) => {
         const eventList = response.data;
         console.log(eventList);
@@ -67,6 +67,7 @@ const EventTable = () => {
           ...prevData,
           rows: updatedRows,
         }));
+        setOriginalRows(updatedRows); // Store the original rows data
       })
       .catch((error) => {
         console.error('Error fetching event data:', error);
@@ -74,12 +75,25 @@ const EventTable = () => {
   }, []);
 
   const handleFilter = () => {
-    const filteredRows = data.rows.filter((row) => row.price <= maxPrice);
-
+    const filteredRows = originalRows.filter((row) => {
+      const priceValue = row.price.replace(/\D/g, ''); // Remove non-numeric characters
+      const price = parseInt(priceValue, 10); // Parse the numeric value
+      console.log(price);
+      return !isNaN(price) && price <= maxPrice;
+    });
+  
     setData((prevData) => ({
       ...prevData,
       rows: filteredRows,
     }));
+  };
+
+  const handleClearFilter = () => {
+    setData((prevData) => ({
+      ...prevData,
+      rows: originalRows, // Restore the original rows data
+    }));
+    setMaxPrice(''); // Clear the filter input
   };
 
   return (
@@ -91,6 +105,7 @@ const EventTable = () => {
         onChange={(e) => setMaxPrice(e.target.value)}
       />
       <button onClick={handleFilter}>Filter</button>
+      <button onClick={handleClearFilter}>Clear Filter</button>
       <MDBDataTable striped bordered data={data} searchable filter="price" />
     </div>
   );
