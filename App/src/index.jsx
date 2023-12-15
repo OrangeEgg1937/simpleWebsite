@@ -43,6 +43,7 @@ class App extends React.Component {
             <Route path="/loc/map" element={<NoMatch />} />
             <Route path="/event/table" element={<NoMatch />} />
             <Route path="/favourite" element={<NoMatch />} />
+            <Route path="/event/admin" element={<EventAdmin />} />
             <Route path="/login" element={<Login />} />
             <Route path="/loc/detail/:locName" element={<NoMatch />} />
             <Route path="*" element={<NoMatch />} />
