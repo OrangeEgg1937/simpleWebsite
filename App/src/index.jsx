@@ -26,7 +26,6 @@ class App extends React.Component {
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav>
                   <button><Link to="/loc/table" className="nav_link" >Location Table</Link></button>
-                  <button><Link to="/loc/map" className="nav_link">Map</Link></button>
                   <button><Link to="/event/table" className="nav_link">Event Table</Link></button>
                   <button><Link to="/favourite" className="nav_link">Favourite</Link></button>
                   <button><Link to="/login">Login</Link></button>
@@ -38,7 +37,6 @@ class App extends React.Component {
           <h3>Content</h3>
           <Routes>
             <Route path="/loc/table" element={<LocationTable />} />
-            <Route path="/loc/map" element={<MapShow />} />
             <Route path="/event/table" element={<NoMatch />} />
             <Route path="/favourite" element={<NoMatch />} />
             <Route path="/login" element={<NoMatch />} />
