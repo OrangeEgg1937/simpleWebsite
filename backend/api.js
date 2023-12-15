@@ -67,8 +67,17 @@ api.get('/events/find/by/location', event.countEventByLocation);
 // Define the API for getting the event info by event id
 api.get('/events/find', event.getEventInfo);
 
-// Deifne the API for getting the event info which the location is equal to the top 10
+// Define the API for getting the event info which the location is equal to the top 10
 api.get('/events/find/by10loc', event.findeventwith10);
+
+// Define the API for create/update the event/update the event (get dummy test)
+api.get('/events/update', event.addOrUpdateEventByGetMethod);
+
+// Define the API for create/update the event/update the event
+api.post('/events/update', event.addOrUpdateEvent);
+
+// Define the API for delete the event
+api.delete('/events/delete', event.deleteEvent);
 
 // If api is not defined, return 404
 api.get('/*', (req, res) => {
