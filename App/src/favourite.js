@@ -26,7 +26,7 @@ const FavoriteLocationList = () => {
 
   useEffect(() => {
     // Fetch the favorite locations data from the API
-    axios.get(`http://localhost:8080/api/users/${userId}/favorite`)
+    axios.get(`http://localhost:8080/api/users/favorite?id=${userId}`)
       .then(response => {
         const favoriteLocationsData = response.data;
         setFavoriteLocations(favoriteLocationsData);

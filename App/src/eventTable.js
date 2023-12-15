@@ -55,7 +55,7 @@ const EventTable = () => {
   const [originalRows, setOriginalRows] = useState([]);
 
   useEffect(() => {
-    axios.get('https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/find/by10loc')
+    axios.get('http://localhost:8080/api/events/find/by10loc')
       .then((response) => {
         const eventList = response.data;
         console.log(eventList);

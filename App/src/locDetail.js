@@ -35,7 +35,7 @@ const LocationDetailPage = () => {
 
   useEffect(() => {
     // Fetch the location and comments data from the API
-    axios.get(`https://miniature-giggle-69v95pvwv7rh45qw-8080.app.github.dev/api/locations/find?id=${locationId}`) // Replace with the actual API endpoint for retrieving a venue
+    axios.get(`http://localhost:8080/api/locations/find?id=${locationId}`) 
       .then(response => {
         setLocation(response.data);
       })
@@ -47,11 +47,11 @@ const LocationDetailPage = () => {
 
   const handleAddComment = () => {
     // Send a request to the backend to add a new comment
-    axios.post(`https://miniature-giggle-69v95pvwv7rh45qw-8080.app.github.dev/api/users/comment/write`, {
-      userid: parseInt(getCookie("userid")), // Replace with the actual userId value
-      locid: locationId, // Replace with the actual locId value
-      comment: newComment // Replace with the actual newComment value
-    }) // Replace with the actual API endpoint for adding a comment
+    axios.post(`http://localhost:8080/api/users/comment/write`, {
+      userid: parseInt(getCookie("userid")), 
+      locid: locationId, 
+      comment: newComment 
+    }) 
       .then(response => {
         const newCommentData = response.data;
         setComments(prevComments => [...prevComments, newCommentData]);
@@ -61,10 +61,10 @@ const LocationDetailPage = () => {
         console.error('Error adding comment:', error);
       });
   };
-
+  useEffect(() => {console.log(comments)})
   const handleAddFavorite = () => {
     // Send a request to the backend to toggle the favorite status of the location
-    axios.post(`https://miniature-giggle-69v95pvwv7rh45qw-8080.app.github.dev/api/users/favorite/write`, {
+    axios.post(`http://localhost:8080/api/users/favorite/write`, {
       userid: parseInt(getCookie("userid")),
       favourite: locationId,
     })
@@ -75,7 +75,7 @@ const LocationDetailPage = () => {
         console.error('Error adding favorite:', error);
       });
   };
-
+  
   const middlept = { lat: 22.302711, lng: 114.177216 };
   const [open, setOpen] = useState(false);
   return (

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import axios from "axios";
 
-const URL = "https://automatic-space-invention-jqgvgpr4956h5wv9-8080.app.github.dev/api/users/login"
+const URL = "http://localhost:8080/api/users/login"
 
 // ref:https://www.w3schools.com/js/js_cookies.asp
 // general function for cookies
@@ -61,7 +61,7 @@ const Login = (props) => {
                     setCookie("token", res.data.token, 0.1);
                     console.log(getCookie("userid"));
                     console.log(getCookie("token"));
-                    axios.get("https://automatic-space-invention-jqgvgpr4956h5wv9-8080.app.github.dev/api/users/check", {})
+                    axios.get("http://localhost:8080/api/users/check", {})
                     .then(res => {console.log(res.data);})
                     navigate("../index", { replace: true });
                 } else {

@@ -33,12 +33,12 @@ const LocationTable = () => {
 
   useEffect(() => {
     axios
-      .get('https://miniature-giggle-69v95pvwv7rh45qw-8080.app.github.dev/api/locations/find10')
+      .get('http://localhost:8080/api/locations/find10')
       .then((response) => {
         const allLocation = response.data;
 
         const rows = allLocation.map(loc => ({
-          name: <Link to={`https://miniature-giggle-69v95pvwv7rh45qw-3000.app.github.dev/loc/detail/${loc.venue_id}`}>{loc.name}</Link>,
+          name: <Link to={`http://localhost:3000/loc/detail/${loc.venue_id}`}>{loc.name}</Link>,
           button: <button onClick={() => handleClick(loc)}>Click me</button>,
         }));
 

@@ -12,9 +12,9 @@ import EventAdmin from "./EventAdmin";
 import UserAdmin from "./UserAdmin";
 import Login from "./login/login"
 import LocationTable from "./locTable"
-// import Map from "./mapShow"
-// import EventTable from "./eventTable"
-// import Favourite from "./favourite"
+
+import EventTable from "./eventTable"
+import Favourite from "./favourite"
 import LocationDetail from "./locDetail"
 
 class App extends React.Component {
@@ -41,9 +41,8 @@ class App extends React.Component {
           </header>
           <Routes>
             <Route path="/loc/table" element={<LocationTable />} />
-            <Route path="/loc/map" element={<NoMatch />} />
-            <Route path="/event/table" element={<NoMatch />} />
-            <Route path="/favourite" element={<NoMatch />} />
+            <Route path="/event/table" element={<EventTable />} />
+            <Route path="/favourite" element={<Favourite />} />
             <Route path="/admin/events" element={<EventAdmin />} />
             <Route path="/admin/users" element={<UserAdmin />} />
             {<Route path="/login" element={<Login />} />}
