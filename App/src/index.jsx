@@ -8,6 +8,7 @@ import {
   Link,
 } from 'react-router-dom';
 import "./index.css";
+import Login from "./login/login";
 // import LocationTable from "./locTable"
 // import Map from "./map"
 // import EventTable from "./eventTable"
@@ -41,7 +42,7 @@ class App extends React.Component {
             <Route path="/loc/map" element={<NoMatch />} />
             <Route path="/event/table" element={<NoMatch />} />
             <Route path="/favourite" element={<NoMatch />} />
-            <Route path="/loc/detail/:locName" element={<NoMatch />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </BrowserRouter>
