@@ -9,6 +9,7 @@ const userSchema = mongoose.Schema({
         required: true,
         unique: true,
     },
+    comment: Object,
     username: String,
     password: String,
     isAdmin: Boolean,
@@ -30,7 +31,7 @@ const eventSchema = mongoose.Schema({
     progtime:String, 
     desce:String, 
     presenterorge:String, 
-    price:Number,
+    price:String,
 })
 const eventModel = mongoose.model('event', eventSchema);
 
@@ -43,7 +44,16 @@ const venueSchema = mongoose.Schema({
     },
     name: String,
     latitude: String,
-    longitude: String
+    longitude: String,
+    comments: [
+        {
+          userID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user',
+          },
+          comment: String,
+        },
+      ],
     },
 )
 const venueModel = mongoose.model('venue', venueSchema);
