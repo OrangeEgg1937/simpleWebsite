@@ -14,6 +14,12 @@ const userSchema = mongoose.Schema({
     password: String,
     isAdmin: Boolean,
     token: String,
+    favorite: [{
+        locID:{
+            type: Number,
+            ref: 'venue',
+        },
+    }] 
 })
 const userModel = mongoose.model('user', userSchema);
 
