@@ -28,13 +28,17 @@ exports.find10 = (req, res) => {
       },
       {
         $project: {
-          venue_id: "$id",
-          name: 1,
-          latitude: 1,
           comments: 1,
+          longitude: 1,
+          latitude: 1,         
+          name: 1,
+          venue_id: "$id",
+          _id: 0,
         },
       },
     ]).then(data => {
+        // Take the first 10 locations
+        data = data.slice(0, 10);
         res.json(data);
     });
 }
