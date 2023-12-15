@@ -49,6 +49,7 @@ exports.find10 = (req, res) => {
 // Get the location info by location id by get method
 exports.getLocationInfo = (req, res) => {
   // get the location id
+  console.log(req.query['id']);
   let id = req.query['id'];
 
   // find the location in the database
