@@ -59,6 +59,7 @@ exports.login = (req, res) => {
 
 // Add or update the user data by userid
 exports.addOrUpdateUser = (req, res) => {
+    console.log(req.body);
     // Get the user id
     let userid = req.body.userid;
     let username = req.body.username;

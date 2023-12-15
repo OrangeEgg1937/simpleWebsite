@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import "./index.css";
 import EventAdmin from "./EventAdmin";
-import Login from "./login/login";
+import UserAdmin from "./UserAdmin";
 import LocationTable from "./locTable"
 // import Map from "./mapShow"
 // import EventTable from "./eventTable"
@@ -30,7 +30,8 @@ class App extends React.Component {
                   <button><Link to="/loc/table" className="nav_link" >Location Table</Link></button>
                   <button><Link to="/event/table" className="nav_link">Event Table</Link></button>
                   <button><Link to="/favourite" className="nav_link">Favourite</Link></button>
-                  <button><Link to="/event/admin" className="nav_link">Events</Link></button>
+                  <button><Link to="/admin/events" className="nav_link">Events</Link></button>
+                  <button><Link to="/admin/users" className="nav_link">Users</Link></button>
                   <button><Link to="/login">Login</Link></button>
                 </Nav>
               </Navbar.Collapse>
@@ -39,12 +40,13 @@ class App extends React.Component {
           </header>
           <h3>Content</h3>
           <Routes>
-            <Route path="/loc/table" element={<NoMatch />} />
+            {/* <Route path="/loc/table" element={<LocationTable />} /> */}
             <Route path="/loc/map" element={<NoMatch />} />
             <Route path="/event/table" element={<NoMatch />} />
             <Route path="/favourite" element={<NoMatch />} />
-            <Route path="/event/admin" element={<EventAdmin />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/admin/events" element={<EventAdmin />} />
+            <Route path="/admin/users" element={<UserAdmin />} />
+            {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/loc/detail/:locName" element={<NoMatch />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
