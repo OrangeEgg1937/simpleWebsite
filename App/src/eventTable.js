@@ -14,6 +14,11 @@ const EventTable = () => {
   const [data, setData] = useState({
     columns: [
       {
+        label: 'Event ID',
+        field: 'eventid',
+        sort: 'asc',
+      },
+      {
         label: 'Title',
         field: 'title',
         sort: 'asc',
@@ -50,11 +55,12 @@ const EventTable = () => {
   const [originalRows, setOriginalRows] = useState([]);
 
   useEffect(() => {
-    axios.get('https://miniature-eureka-vxjqrr96jrrhpr6w-8080.app.github.dev/api/events/find/by10loc')
+    axios.get('https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/find/by10loc')
       .then((response) => {
         const eventList = response.data;
         console.log(eventList);
         const updatedRows = eventList.map((event) => ({
+          eventid: event.eventid,
           title: event.title,
           venueId: event.venueid,
           time: event.progtime,
@@ -97,7 +103,7 @@ const EventTable = () => {
   };
 
   return (
-    <div>
+    <div className=".container" style={{width: "100%"}}>
       <input
         type="number"
         placeholder="Max Price"

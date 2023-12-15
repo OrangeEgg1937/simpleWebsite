@@ -22,12 +22,13 @@ class UserAdmin extends React.Component {
     // Search User
     handleSearchUser = async (event) => {
         event.preventDefault();
-        const eventId = document.getElementById('editSearchUserID').value;
+        const userId = document.getElementById('editSearchUserID').value;
 
         try {
-            //TODO: get user detail by userId
+            //TODO: get user detail by userI
             let userDetails;
-            axios.get(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/events/find?id=${eventId}`)
+            axios.get(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/users/all`)
+            
             .then((response) => {
                 userDetails = response.data;
                 console.log(response.data);
@@ -45,9 +46,15 @@ class UserAdmin extends React.Component {
         }
     };
 
-    // TODO: delete user
     handleDeleteUser = async (event) => {
         event.preventDefault();
+        const userId = document.getElementById('editSearchUserID').value;
+
+        axios.delete(`https://scaling-sniffle-pqr77x5p779h65p-8080.app.github.dev/api/users/delete` , {
+            id: userId,
+        })
+        .catch((error) => console.log(error));
+        
     };
 
     render() {
